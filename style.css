@@ -1,0 +1,98 @@
+/* --- 1. MOBILE VIEW (Mobile First) --- */
+/* Плавная прокрутка по умолчанию */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr; /* Одна колонка */
+    grid-gap: 10px; /* Отступ 10px между рядами и колонками */
+}
+
+figure {
+    margin: 0;
+    padding: 15px;
+    border: 2px solid #ccc;
+    background-color: #f9f9f9;
+}
+
+figure img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* --- 2. TABLET VIEW (772px) --- */
+@media screen and (min-width: 772px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr; /* Две колонки */
+    }
+
+    figure {
+        border-radius: 50%; /* Круглая форма */
+        overflow: hidden;
+        aspect-ratio: 1 / 1; /* Чтобы круг был ровным */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    /* Последняя фигура занимает обе колонки */
+    figure:last-of-type {
+        grid-column: span 2;
+        border-radius: 0; /* Опционально, чтобы растянутый блок выглядел лучше */
+        aspect-ratio: auto;
+    }
+}
+
+/* --- 3. LARGE SCREEN VIEW (992px) --- */
+@media screen and (min-width: 992px) {
+    .grid-container {
+        grid-template-columns: 1fr 1fr 1fr; /* Три колонки (визуально) */
+    }
+
+    figure {
+        border-radius: 0; /* Удаляем скругление */
+        aspect-ratio: auto;
+    }
+
+    /* Каждая третья фигура занимает две колонки */
+    figure:nth-of-type(3n) {
+        grid-column: span 2;
+    }
+
+    /* Сбрасываем правило из планшета для последней фигуры, если она не 3-я */
+    figure:last-of-type {
+        grid-column: auto;
+    }
+}
+
+/* --- 4. PREFERS-REDUCED-MOTION --- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto; /* Отключаем плавную прокрутку */
+    }
+}
+
+/* --- 5. DARK COLOR SCHEME --- */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #ffffff;
+    }
+
+    figure {
+        background-color: #333333; /* Темный фон */
+        color: #fffae6;           /* Светло-желтый текст */
+        border-color: #000000;    /* Черная рамка */
+    }
+}
